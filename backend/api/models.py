@@ -78,3 +78,31 @@ class Appointment(models.Model):
 
     def __str__(self):
         return f"{self.client.user.username} with {self.therapist.user.username} at {self.start_time}"
+
+class PHIAccessLog(models.Model):
+    """
+    Append-only audit trail of every request that touches PHI.
+    Never modify or delete rows here write-only by design.
+    """
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,    # keep the log if the user is deleted
+        null=True,
+        blank=True,
+        related_name="phi_access_logs",
+    )
+    timestamp = models.DateTimeField(auto_now_add=True, db_index=True)
+    method = models.CharField(max_length=10)
+    path = models.CharField(max_length=500)
+    status_code = models.PositiveSmallIntegerField()
+    ip = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        ordering = ["-timestamp"]
+        indexes = [
+            models.Index(fields=["user", "-timestamp"]),
+        ]
+
+    def __str__(self):
+        who = self.user.username if self.user else "anon"
+        return f"{self.timestamp:%Y-%m-%d %H:%M:%S} {who} {self.method} {self.path} → {self.status_code}"
