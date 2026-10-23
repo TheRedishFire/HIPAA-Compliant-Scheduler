@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.authtoken import views as authtoken_views
+from backend.api.auth_views import ThrottledObtainAuthToken
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('backend.api.urls')),
-    path('api-token-auth/', authtoken_views.obtain_auth_token),
+    path('api-token-auth/', ThrottledObtainAuthToken.as_view()),
 ]
