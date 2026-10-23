@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+/* TAILWIND V4 CONFIGURATION 
+  This replaces tailwind.config.js 
+*/
+@theme {
+  --color-text: #241f21;
+  --color-gold: #ad8330;
+  --color-green: #365010;
+  --color-light: #f9f8f6;
+  --color-border: #e5e0d8;
+  
+  --font-sans: "Roboto", sans-serif;
+  --font-serif: "Cormorant Garamond", serif;
+}
+
+/* YOUR CUSTOM GLOBAL STYLES 
+*/
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: #ffffff;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--color-text);
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
