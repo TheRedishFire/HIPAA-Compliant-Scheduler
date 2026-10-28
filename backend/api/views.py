@@ -3,8 +3,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import PermissionDenied, ValidationError
 
 from .models import Appointment, User
-from .serializers import AppointmentSerializer
+from .serializers import AppointmentSerializer, RegisterSerializer
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.throttling import AnonRateThrottle
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
@@ -12,11 +17,14 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
+        base = Appointment.objects.select_related(
+        "client__user", "therapist__user"
+        )
         if user.role == User.Role.THERAPIST:
             return Appointment.objects.filter(therapist__user=user)
         if user.role == User.Role.CLIENT:
             return Appointment.objects.filter(client__user=user)
-        return Appointment.objects.none()
+        return base.none()
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -82,3 +90,45 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             return
 
         raise PermissionDenied("Unknown role.")
+
+class MeView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        return Response({
+            "id": user.id,
+            "username": user.username,
+            "role": user.role,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+        })
+
+class RegisterRateThrottle(AnonRateThrottle):
+    scope = "register"
+
+
+class RegisterView(APIView):
+    permission_classes = []
+    authentication_classes = []
+    throttle_classes = [RegisterRateThrottle]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token, _ = Token.objects.get_or_create(user=user)
+
+        return Response(
+            {
+                "token": token.key,
+                "user": {
+                    "id": user.id,
+                    "username": user.username,
+                    "role": user.role,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                },
+            },
+            status=status.HTTP_201_CREATED,
+        )

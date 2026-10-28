@@ -51,12 +51,14 @@ export default function HomePage() {
             <span className="font-sans text-[0.6rem] tracking-[0.25em] uppercase mt-1 opacity-90">Counseling</span>
           </Link>
 
-          <Link 
-            href="mailto:jillevalentine@gmail.com" 
-            className="hidden md:inline-block bg-[#ad8330] hover:bg-[#8e6b27] transition-colors text-white px-7 py-3 rounded-full text-[0.8rem] font-bold tracking-wide"
-          >
-            Request an Appointment
-          </Link>
+          <div className="hidden md:flex items-center gap-4">
+            <Link href="/login" className="text-white/80 hover:text-white text-[0.75rem] font-bold uppercase tracking-wider transition-colors">
+              Client Portal
+            </Link>
+            <Link href="/request-appointment" className="bg-[#ad8330] hover:bg-[#8e6b27] transition-colors text-white px-7 py-3 rounded-full text-[0.8rem] font-bold tracking-wide">
+              Request an Appointment
+            </Link>
+          </div>
         </header>
 
         <div className="relative z-10 text-center text-white px-4 mt-12 max-w-4xl mx-auto">

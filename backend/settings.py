@@ -116,6 +116,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "user": "1000/hour",
         "auth": "5/min",
+        "register": "10/hour",
     },
 }
 

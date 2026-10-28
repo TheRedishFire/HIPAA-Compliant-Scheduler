@@ -14,6 +14,11 @@ class User(AbstractUser):
         default=Role.CLIENT
     )
 
+    @property
+    def display_name(self):
+        """Real name if set, else username. Always non-empty."""
+        return self.get_full_name().strip() or self.username
+
 class TherapistProfile(models.Model):
     # Linking to auth user
     user = models.OneToOneField(
@@ -41,7 +46,6 @@ class ClientProfile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True)
     phone_number = models.CharField(max_length=20)
 
-    # will add the encrypted PHI fields here in weeks 10-12
 
     def __str__(self):
         return f"Client: {self.user.username}"
