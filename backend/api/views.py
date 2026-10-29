@@ -11,7 +11,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.throttling import AnonRateThrottle
 from rest_framework.exceptions import MethodNotAllowed
-
+from django.conf import settings
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
@@ -122,6 +122,11 @@ class RegisterView(APIView):
     throttle_classes = [RegisterRateThrottle]
 
     def post(self, request):
+        if not settings.REGISTRATION_ENABLED:
+            raise PermissionDenied(
+                "Registration is currently by invitation. "
+                "Please contact the practice to be added as a client."
+            )
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()

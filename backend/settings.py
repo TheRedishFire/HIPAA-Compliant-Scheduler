@@ -12,6 +12,8 @@ load_dotenv(BASE_DIR / ".env")
 
 
 # --- Core security ---
+REGISTRATION_ENABLED = os.environ.get("REGISTRATION_ENABLED", "True") == "True"
+
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 if not SECRET_KEY:
     if os.environ.get("DJANGO_DEBUG", "True") == "True":

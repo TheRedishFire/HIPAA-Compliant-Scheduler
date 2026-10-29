@@ -28,6 +28,8 @@ const EMPTY_FORM: FormState = {
 
 export default function SignupPage() {
   const router = useRouter();
+  const REGISTRATION_ENABLED =
+  process.env.NEXT_PUBLIC_REGISTRATION_ENABLED !== "false";
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [error, setError] = useState("");
@@ -80,9 +82,48 @@ export default function SignupPage() {
       setLoading(false);
     }
   }
-
+  if (!REGISTRATION_ENABLED) {
+    return (
+      <div className="min-h-screen bg-light flex flex-col items-center justify-center px-6 py-12">
+        <Link
+          href="/request-appointment"
+          className="mb-8 flex items-center gap-2 text-sm font-bold text-gold hover:text-[#8e6b27] transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" /> Back
+        </Link>
+        <div className="w-full max-w-md bg-white border border-border rounded-2xl p-8 text-center shadow-[0_4px_20px_rgb(0,0,0,0.04)]">
+          <div className="text-center mb-6">
+            <div className="font-serif text-2xl tracking-wide text-text">
+              VALENTINE
+            </div>
+            <div className="font-sans text-[0.5rem] tracking-[0.25em] uppercase mt-1 text-gray-500">
+              Counseling
+            </div>
+          </div>
+          <h1 className="font-serif text-2xl mb-3">Invitation only</h1>
+          <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+            The client portal is currently by invitation. Please contact the
+            practice to be added as a client.
+          </p>
+          <a
+            href="tel:4356190326"
+            className="block text-gold font-bold hover:text-[#8e6b27] mb-2"
+          >
+            (435) 619-0326
+          </a>
+          <a
+            href="mailto:jillevalentine@gmail.com"
+            className="text-gold font-bold hover:text-[#8e6b27] break-all"
+          >
+            jillevalentine@gmail.com
+          </a>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-light flex flex-col items-center justify-center px-6 py-12">
+
       <Link
         href="/request-appointment"
         className="mb-8 flex items-center gap-2 text-sm font-bold text-gold hover:text-[#8e6b27] transition-colors"
