@@ -10,10 +10,18 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.throttling import AnonRateThrottle
+from rest_framework.exceptions import MethodNotAllowed
+
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     serializer_class = AppointmentSerializer
     permission_classes = [IsAuthenticated]
+    def destroy(self, request, *args, **kwargs):
+        raise MethodNotAllowed(
+        "DELETE",
+        detail="Appointments cannot be deleted. Use status=CANCELED to cancel, "
+               "or contact the practice to archive completed sessions."
+    )
 
     def get_queryset(self):
         user = self.request.user

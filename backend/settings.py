@@ -147,11 +147,25 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 
 # --- Email (preserved from your file) ---
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
+# --- Email ---
+if DEBUG:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.console.EmailBackend",
+        },
+    }
+else:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+            "HOST": os.environ.get("EMAIL_HOST", ""),
+            "PORT": int(os.environ.get("EMAIL_PORT", "587")),
+            "USERNAME": os.environ.get("EMAIL_HOST_USER", ""),
+            "PASSWORD": os.environ.get("EMAIL_HOST_PASSWORD", ""),
+            "USE_TLS": True,
+            "TIMEOUT": 10,
+        },
+    }
 
 
 # --- HTTPS / transport (only when DEBUG=False) ---
