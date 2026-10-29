@@ -55,6 +55,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
             if therapist:
                 overlapping = Appointment.objects.filter(
                     therapist=therapist,
+                    status__in=[Appointment.Status.REQUESTED, Appointment.Status.CONFIRMED], # fixed canc apps blocking new ones
                     start_time__lt=end,       # existing starts before new ends
                     end_time__gt=start,       # existing ends after new starts
                 )

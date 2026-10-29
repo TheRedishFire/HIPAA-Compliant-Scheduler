@@ -285,6 +285,23 @@ class UpdateSecurityTests(BaseAPITestCase):
 
 
 class TimeValidationTests(BaseAPITestCase):
+    def test_canceled_appointment_does_not_block_new_request(self):
+        """
+        A CANCELED appointment must free its slot for new requests.
+        (Bug: the original overlap filter didn't exclude CANCELED.)
+        """
+        self.appt.status = Appointment.Status.CANCELED
+        self.appt.save()
+
+        # Try to book the same slot the canceled appointment held
+        payload = {
+            "start_time": self.start.isoformat(),
+            "end_time": self.end.isoformat(),
+        }
+        r = self.api.post(
+            "/api/appointments/", payload, format="json", **self.auth(self.token_c1)
+        )
+        self.assertEqual(r.status_code, 201)  # slot is free now
     def test_end_before_start_rejected(self):
         """Bug 5: end_time <= start_time → 400."""
         start = timezone.now() + timedelta(days=60)
