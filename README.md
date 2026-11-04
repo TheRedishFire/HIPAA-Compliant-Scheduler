@@ -46,7 +46,7 @@ layer.
   status, from what IP). The log is read-only even for superusers; API `DELETE`
   on appointments returns 405 to preserve HIPAA record retention.
 - **Token auth with login throttling.** `POST /api-token-auth/` is rate-limited
-  to 5 attempts/minute per IP. Registration is disabled in production.
+  to 5 attempts/minute per IP. 
 - **Time validation.** Server-side checks for `start < end`, overlap detection
   per therapist (excluding canceled appointments), and time-lock on
   `CONFIRMED` appointments for non-therapist users.

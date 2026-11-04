@@ -3,11 +3,13 @@ import { MapPin, Phone, Mail, CheckCircle2, ArrowRight } from "lucide-react";
 
 export default function HomePage() {
   return (
-  <div className="font-sans antialiased bg-[#f9f8f6] text-[#241f21]">
-      <div className="bg-[#241f21] text-white text-[13px] py-3 px-6 flex justify-center items-center gap-8 flex-wrap tracking-wider sticky top-0 z-50 shadow-md">
-        <span>Free 15-minute consultation available.</span>
+    <div className="font-sans antialiased bg-[#f9f8f6] text-[#241f21] overflow-x-hidden">
+      
+
+      <div className="bg-[#241f21] text-white text-[12px] md:text-[13px] py-3 px-4 md:px-6 flex items-center gap-6 md:gap-8 overflow-x-auto whitespace-nowrap tracking-wider sticky top-0 z-50 shadow-md scrollbar-hide">
+        <span className="hidden sm:inline">Free 15-minute consultation available.</span>
     
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-4 md:gap-6 shrink-0">
           <span className="flex items-center gap-2">
             <Phone className="w-3.5 h-3.5 text-[#ad8330]" />
             <a href="tel:4356190326" className="hover:text-[#ad8330] transition-colors font-bold">435.619.0326</a>
@@ -18,15 +20,15 @@ export default function HomePage() {
           </span>
         </div>
 
-    <nav className="flex items-center gap-6 font-bold uppercase text-[12px] border-l border-white/20 pl-8 ml-2">
-        <Link href="/" className="hover:text-[#ad8330] transition-colors">Home</Link>
-        <Link href="/about" className="hover:text-[#ad8330] transition-colors">About</Link>
-        <Link href="/services" className="hover:text-[#ad8330] transition-colors">Services</Link>
-        <Link href="/specialties" className="hover:text-[#ad8330] transition-colors">Specialties</Link>
-        <Link href="/insurance" className="hover:text-[#ad8330] transition-colors">Insurance</Link>
-        <Link href="/faq" className="hover:text-[#ad8330] transition-colors">FAQ</Link>
-        <Link href="/contact" className="hover:text-[#ad8330] transition-colors">Contact</Link>
-    </nav>
+        <nav className="hidden lg:flex items-center gap-6 font-bold uppercase text-[12px] border-l border-white/20 pl-8 ml-auto">
+          <Link href="/" className="hover:text-[#ad8330] transition-colors">Home</Link>
+          <Link href="/about" className="hover:text-[#ad8330] transition-colors">About</Link>
+          <Link href="/services" className="hover:text-[#ad8330] transition-colors">Services</Link>
+          <Link href="/specialties" className="hover:text-[#ad8330] transition-colors">Specialties</Link>
+          <Link href="/insurance" className="hover:text-[#ad8330] transition-colors">Insurance</Link>
+          <Link href="/faq" className="hover:text-[#ad8330] transition-colors">FAQ</Link>
+          <Link href="/contact" className="hover:text-[#ad8330] transition-colors">Contact</Link>
+        </nav>
       </div>
 
       <section className="relative w-full h-[85vh] min-h-[600px] flex items-center justify-center">
@@ -41,33 +43,33 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-black/45"></div>
         </div>
 
-        <header className="absolute top-0 left-0 w-full z-40 px-8 py-6 flex items-center justify-between text-white">
-          
-          {/* Empty div to keep the logo perfectly centered using flexbox */}
-          <div className="w-[200px] hidden md:block"></div>
-
-          <Link href="/" className="absolute left-1/2 -translate-x-1/2 text-center flex flex-col items-center">
-            <span className="font-serif text-[2.5rem] leading-none tracking-wide">VALENTINE</span>
-            <span className="font-sans text-[0.6rem] tracking-[0.25em] uppercase mt-1 opacity-90">Counseling</span>
+        {/* FIX 2: Hero Header - Replaced absolute centering with Flexbox so buttons fit on mobile */}
+        <header className="absolute top-0 left-0 w-full z-40 px-4 md:px-8 py-4 md:py-6 flex items-center justify-between text-white">
+          <Link href="/" className="flex flex-col items-start md:items-center relative md:absolute md:left-1/2 md:-translate-x-1/2">
+            <span className="font-serif text-[1.8rem] md:text-[2.5rem] leading-none tracking-wide">VALENTINE</span>
+            <span className="font-sans text-[0.5rem] md:text-[0.6rem] tracking-[0.25em] uppercase mt-1 opacity-90">Counseling</span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/login" className="text-white/80 hover:text-white text-[0.75rem] font-bold uppercase tracking-wider transition-colors">
-              Client Portal
+          <div className="hidden md:block w-[200px]"></div> {/* Keeps desktop perfectly centered */}
+
+          <div className="flex items-center gap-3 md:gap-4 ml-auto">
+            <Link href="/login" className="text-white/80 hover:text-white text-[0.65rem] md:text-[0.75rem] font-bold uppercase tracking-wider transition-colors">
+              Login
             </Link>
-            <Link href="/request-appointment" className="bg-[#ad8330] hover:bg-[#8e6b27] transition-colors text-white px-7 py-3 rounded-full text-[0.8rem] font-bold tracking-wide">
-              Request an Appointment
+            <Link href="/request-appointment" className="bg-[#ad8330] hover:bg-[#8e6b27] transition-colors text-white px-4 py-2 md:px-7 md:py-3 rounded-full text-[0.7rem] md:text-[0.8rem] font-bold tracking-wide">
+              Book Now
             </Link>
           </div>
         </header>
 
         <div className="relative z-10 text-center text-white px-4 mt-12 max-w-4xl mx-auto">
-          <h1 className="font-serif text-[3.5rem] leading-[1.1] mb-6 font-medium text-white drop-shadow-2xl">
-            Clinical Social Work & Therapy <br />
+          {/* FIX 3: Made the hero text smaller on mobile */}
+          <h1 className="font-serif text-4xl md:text-[3.5rem] leading-[1.1] mb-6 font-medium text-white drop-shadow-2xl">
+            Clinical Social Work & Therapy <br className="hidden md:block" />
             in Washington County
           </h1>
           
-          <p className="font-sans text-[0.85rem] tracking-widest uppercase mb-10 max-w-2xl mx-auto leading-relaxed font-medium text-white/90 drop-shadow-md">
+          <p className="font-sans text-[0.75rem] md:text-[0.85rem] tracking-widest uppercase mb-10 max-w-2xl mx-auto leading-relaxed font-medium text-white/90 drop-shadow-md">
             Assisting individuals in finding the tools they already possess to heal, create change, and find inner peace.
           </p>
           
@@ -82,8 +84,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <main className="max-w-[1200px] mx-auto px-6 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
+      <main className="max-w-[1200px] mx-auto px-6 py-12 md:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
           <div className="lg:col-span-2">
             <div className="flex flex-col md:flex-row gap-8 mb-12">
               <div className="w-full md:w-2/5 shrink-0">
@@ -94,10 +96,10 @@ export default function HomePage() {
                 />
               </div>
               <div className="w-full md:w-3/5">
-                <h2 className="text-4xl mb-2 text-[#241f21]">Jill Valentine, LCSW</h2>
-                <p className="text-[#ad8330] font-bold tracking-wide text-sm uppercase mb-6">Verified by Psychology Today • 26 Years in Practice</p>
+                <h2 className="text-3xl md:text-4xl mb-2 text-[#241f21]">Jill Valentine, LCSW</h2>
+                <p className="text-[#ad8330] font-bold tracking-wide text-xs md:text-sm uppercase mb-6">Verified by Psychology Today • 26 Years in Practice</p>
                 
-                <div className="space-y-4 text-lg leading-relaxed text-gray-700">
+                <div className="space-y-4 text-base md:text-lg leading-relaxed text-gray-700">
                   <p>
                     I truly believe that every individual has the innate ability to heal and to find inner peace. My job is to assist in helping individuals find the tools they already possess, and to provide support for this process. I'm open to providing significant direction or gentle nudgings, depending on what you're ready for. 
                   </p>
@@ -111,13 +113,12 @@ export default function HomePage() {
               </div>
             </div>
             
-
             <div className="mt-12">
               <h3 className="text-2xl mb-6 border-b border-[#e5e0d8] pb-4">Top Specialties</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5" /> <span>Depression</span></div>
-                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5" /> <span>Trauma and PTSD</span></div>
-                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5" /> <span>Relationship Issues</span></div>
+                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5 shrink-0" /> <span>Depression</span></div>
+                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5 shrink-0" /> <span>Trauma and PTSD</span></div>
+                <div className="flex items-center gap-3"><CheckCircle2 className="text-[#365010] w-5 h-5 shrink-0" /> <span>Relationship Issues</span></div>
               </div>
             </div>
 
@@ -125,7 +126,7 @@ export default function HomePage() {
               <h3 className="text-xl mb-4 font-serif">Areas of Expertise</h3>
               <div className="flex flex-wrap gap-2">
                 {["Anxiety", "Dissociative Disorders (DID)", "Divorce", "Domestic Abuse", "Domestic Violence", "Eating Disorders", "Grief", "Life Coaching", "Parenting", "Sex Therapy", "Spirituality"].map((item) => (
-                  <span key={item} className="bg-white border border-[#e5e0d8] text-sm px-4 py-2 rounded-full text-gray-600">
+                  <span key={item} className="bg-white border border-[#e5e0d8] text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-full text-gray-600">
                     {item}
                   </span>
                 ))}
@@ -133,7 +134,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
+            <div className="bg-white p-6 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
               <h3 className="text-xl mb-6 font-serif border-b border-[#e5e0d8] pb-4">Practice at a Glance</h3>
               <div className="space-y-4 text-sm">
                 <div className="flex items-start gap-3">
@@ -153,7 +154,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
+            <div className="bg-white p-6 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
               <h3 className="text-xl mb-6 font-serif border-b border-[#e5e0d8] pb-4">Finances & Insurance</h3>
               <div className="mb-6">
                 <p className="text-2xl font-serif text-[#365010] mb-1">$105</p>
@@ -183,7 +184,7 @@ export default function HomePage() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
             </div>
-            <div className="bg-white p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
+            <div className="bg-white p-6 md:p-8 rounded-xl shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-[#e5e0d8]">
               <h3 className="text-xl mb-4 font-serif border-b border-[#e5e0d8] pb-4 text-[#241f21]">Client Focus</h3>
               <ul className="text-sm space-y-2 text-gray-700">
                 <li><strong className="text-gray-900">Age:</strong> Teens, Adults</li>
